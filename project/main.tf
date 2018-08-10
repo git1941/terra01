@@ -7,14 +7,19 @@ variable "http_port" {
 	default = 80
 }
 
-#output "public_ip" {
-#	value = "${aws_instance.example.public_ip}"
-#}
 
 output "elb_dns_name" {
 	value = "${aws_elb.example.dns_name}"
 }
 
+#backend make sure to change bucket name 
+terraform {
+  backend "s3" {
+    bucket = "terraform-up-and-running-state-00001"
+    key    = "terraform.tfstate"
+    region = "eu-central-1"
+  }
+}
 
 data "aws_availability_zones" "all" {}
 
